@@ -1,0 +1,16 @@
+{
+  "name": "appclaw",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "appclaw-runner --env-file .env",
+    "test:parallel": "appclaw-runner --workers 3 --env-file .env",
+    "postinstall": "patch-package"
+  },
+  "devDependencies": {
+    "@appclaw/core": "^2.7.0",
+    "@appclaw/runner": "^2.7.0",
+    "patch-package": "^8.0.1",
+    "tsx": "^4.21.0"
+  }
+}

@@ -1,0 +1,18 @@
+diff --git a/node_modules/@appclaw/core/dist/llm/provider.js b/node_modules/@appclaw/core/dist/llm/provider.js
+index a00a76c..c0c6b34 100644
+--- a/node_modules/@appclaw/core/dist/llm/provider.js
++++ b/node_modules/@appclaw/core/dist/llm/provider.js
+@@ -342,6 +342,13 @@ export function createLLMProvider(config, mcpTools) {
+     const dynamicTools = convertMCPToolsToAITools(mcpTools, excludedTools);
+     const metaTools = buildMetaTools(config.AGENT_MODE);
+     const allTools = { ...dynamicTools, ...metaTools };
++    // OpenAI's Responses API treats function tools as strict when `strict` is
++    // omitted; with these schemas it then returns an empty `incomplete` response
++    // (0 tokens, no tool call), which the agent loop reads as "done".
++    if (config.LLM_PROVIDER === 'openai') {
++        for (const t of Object.values(allTools))
++            t.strict ??= false;
++    }
+     // ─── System prompt cache ────────────────────────────────
+     // Built lazily on first getDecision() call (platform not known at init time),
+     // then reused for every subsequent step — platform/mode never change mid-run.
