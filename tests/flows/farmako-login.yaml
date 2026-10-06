@@ -1,0 +1,15 @@
+# Flutter exposes the phone field only by its hint and the Proceed label only
+# as part of a longer content-desc, which the natural-language `app.run()`
+# forms can't target. Structured selectors can.
+appId: in.farmako.users_app_mv2
+---
+- type:
+    value: "1234567890"
+    into:
+      hint: Enter Phone Number
+- tap:
+    # "^" because the full-screen splash description also says "…proceed as an
+    # anonymous user", so a plain `contains` matches two elements.
+    accessibilityId:
+      value: "^Proceed\\b"
+      match: regex

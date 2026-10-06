@@ -5,6 +5,7 @@
   "scripts": {
     "test": "appclaw-runner --env-file .env",
     "test:parallel": "appclaw-runner --workers 3 --env-file .env",
+    "test:order": "appclaw-runner --env-file .env --timeout 480000 tests/farmako-order.spec.ts",
     "postinstall": "patch-package"
   },
   "devDependencies": {
